@@ -3,15 +3,19 @@
            https://api.github.com/users/<your name>
 */
 
+const cards = document.querySelector('.cards');
 axios.get('https://api.github.com/users/meganwhite')
-  .then(data => {
-    console.log('Github info: ', data)
-    const user = data.data;
-    console.log(user);
+  .then(object => {
+    console.log('Github info: ', object)
+    const myData = object.data;
+    console.log(myData);
+    const userCard = createCard(myData);
+    cards.appendChild(userCard);
   })
   .catch(error => {
     console.log('The API is currently down, try again later', error)
   })
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -23,6 +27,9 @@ axios.get('https://api.github.com/users/meganwhite')
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
+
+
+
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
@@ -85,15 +92,15 @@ function createCard(user) {
   userName.classList.add('username');
 
   // set the content
-  img.src = user.data.avatar_url;
-  name.textContent = user.data.name;
-  userName.textContent = user.data.login;
-  location.textContent = user.data.location;
-  address.href = user.data.html_url;
-  address.textContent = user.data.hmtl_url;
-  followers.textContent = user.data.followers;
-  following.textContent = user.data.following;
-  bio.textContent = user.data.bio;
+  img.src = user.avatar_url;
+  name.textContent = user.name;
+  userName.textContent = user.login;
+  location.textContent = `Location: ${user.location}`;
+  address.textContent = `${user.html_url}`;
+  address.href = user.html_url;
+  followers.textContent = `Followers: ${user.followers}`;
+  following.textContent = `Following: ${user.following}`;
+  bio.textContent = `Bio: ${user.bio}`;
 
   // put together
   card.appendChild(img);
@@ -102,10 +109,11 @@ function createCard(user) {
   cardInfo.appendChild(userName);
   cardInfo.appendChild(location);
   cardInfo.appendChild(profile);
+  profile.appendChild(address);
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
-  profile.appendChild(address);
+  
 
   return card;
 
