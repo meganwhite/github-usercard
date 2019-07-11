@@ -6,6 +6,8 @@
 axios.get('https://api.github.com/users/meganwhite')
   .then(data => {
     console.log('Github info: ', data)
+    const user = data.data;
+    console.log(user);
   })
   .catch(error => {
     console.log('The API is currently down, try again later', error)
@@ -61,3 +63,50 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+function createCard(user) {
+  // create elements
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const address = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  // set the styles
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+
+  // set the content
+  img.src = user.data.avatar_url;
+  name.textContent = user.data.name;
+  userName.textContent = user.data.login;
+  location.textContent = user.data.location;
+  address.href = user.data.html_url;
+  address.textContent = user.data.hmtl_url;
+  followers.textContent = user.data.followers;
+  following.textContent = user.data.following;
+  bio.textContent = user.data.bio;
+
+  // put together
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  profile.appendChild(address);
+
+  return card;
+
+}
