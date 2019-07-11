@@ -130,8 +130,27 @@ function createCard(user) {
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
+
+  // add button element
+  expandButton = document.createElement('button');
+  expandButton.classList.add('expandButton');
+  expandButton.textContent = "Expand";
+  card.appendChild(expandButton);
+  expandButton.addEventListener('click', event => {
+    cardInfo.classList.toggle('card--open');
+    if (cardInfo.classList.contains('card--open')) {
+      expandButton.textContent = "Close";
+    }
+    else {
+      expandButton.textContent = 'Expand';
+    }
+  })
+  
+
   
 
   return card;
 
 }
+
+
